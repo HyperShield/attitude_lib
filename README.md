@@ -1,0 +1,3 @@
+# attitude_lib
+
+Work in progress...
