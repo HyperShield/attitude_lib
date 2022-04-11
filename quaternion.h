@@ -135,19 +135,39 @@ Quaternion<T> vec_to_quat(const Vec3<T>& u)
 {
     return Quaternion<T>(0,u[0],u[1],u[2]);
 }
+
+
 template <typename T>
 class Unit_Quaternion : public Quaternion<T> {
+private:
+    void normalize() {T norm = std::sqrt(this->w*this->w + this->x*this->x + this->y*this->y + this->z*this->z); this->w /= norm; this->x /= norm; this->y /= norm; this->z /= norm;}
 public:
     Unit_Quaternion() : Quaternion<T>(1,0,0,0) {}
-    Unit_Quaternion(T w, T x, T y, T z) : Quaternion<T>(w,x,y,z) {}
+    Unit_Quaternion(T w, T x, T y, T z) : Quaternion<T>(w,x,y,z) {normalize();}
     Unit_Quaternion(T angle, Vec3<T> axis) {this->w = std::cos(angle/2);this->x = std::sin(angle/2)*axis[0];this->y = std::sin(angle/2)*axis[1];this->z = std::sin(angle/2)*axis[2];}
     Unit_Quaternion(std::initializer_list<T> l) = delete;
-    void normalize() {T norm = std::sqrt(this->w*this->w + this->x*this->x + this->y*this->y + this->z*this->z); *this /= norm;}
+
+    Unit_Quaternion<T>& operator+=(const Quaternion<T>& q);
+    Unit_Quaternion<T>& operator+=(const Unit_Quaternion<T>& q) = delete;
+    Unit_Quaternion<T>& operator-=(const Unit_Quaternion<T>& q) = delete;
+    Unit_Quaternion<T>& operator/=(const T& a) = delete;
+    Unit_Quaternion<T>& operator*=(const T& a) = delete;
+
 };
 template <typename T>
 std::ostream& operator<<(std::ostream& os, Unit_Quaternion<T> q)
 {
     return os << "Unit_Quaternion: " <<  "{" << q[0] << ", " << q[1] << ", " << q[2] << ", " << q[3] << "}";
+}
+template <typename T>
+Unit_Quaternion<T>& Unit_Quaternion<T>::operator+=(const Quaternion<T>& q)
+{
+    this->w += q[0];
+    this->x += q[1];
+    this->y += q[2];
+    this->z += q[3];
+    normalize();
+    return *this;
 }
 template <typename T>
 Quaternion<T> operator*(const Quaternion<T>& q, const Unit_Quaternion<T>& p)

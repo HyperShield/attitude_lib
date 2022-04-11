@@ -29,7 +29,6 @@ void attitude<T>::update_attitude(const Vec3<T>& w, const T& dt)
 {
     auto dot_q = static_cast<T>(0.5)*(q*vec_to_quat(w));
     q += dt*dot_q;
-    q.normalize();
 }
 template <typename T>
 Vec3<T> attitude<T>::get_attitude_euler()
