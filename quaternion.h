@@ -48,6 +48,7 @@ public:
     Quaternion() : Quaternion_Base<T>{0,0,0,0} {}
     Quaternion(const T& w, const T& x , const T& y, const T& z) : Quaternion_Base<T>{w,x,y,z} {}
     Quaternion(const Unit_Quaternion<T>& q) : Quaternion_Base<T>{q} {}
+    Quaternion(const Vec3<T>& v) : Quaternion_Base<T>{0,v[0],v[1],v[2]} {}
 
     Quaternion<T>&      operator*=(const Quaternion<T>& q);
     Quaternion<T>&      operator+=(const Quaternion<T>& q)  {this->w += q.w; this->x += q.x; this->y += q.y; this->z += q.z; return *this;}
