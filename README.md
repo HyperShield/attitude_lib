@@ -2,6 +2,8 @@
 
 This is still a work in progress.
 
+This is a simple library that focuses on representing rigid-body attitude kinematics using unit quaternions.
+
 Quaternions are divided into:
 
 	Quaternion_Base
@@ -18,6 +20,10 @@ This separation is a bit strict especially for practical use, but it's straightf
 The Vec3 and Mat3 classes are meant to be helper classes and not full representations of euclidean vectors and GL(3,R).
 
 TODO:
+
+	- Test for bugs
+	
+	- General refactoring
 
 	- Finish function that are not implemented atm (for instance get_attitude_DCM())
 	
