@@ -18,7 +18,11 @@ This separation is a bit strict especially for practical use, but it's straightf
 The Vec3 and Mat3 classes are meant to be helper classes and not full representations of euclidean vectors and GL(3,R).
 
 TODO:
+
 	- Finish function that are not implemented atm (for instance get_attitude_DCM())
+	
 	- Better, and perhaps more flexibility with, numerical integration.
+	
 	- Implementation of attitude filter (Madgwick, MEKF, ECF etc).
+	
 	- Finish TODO list.
