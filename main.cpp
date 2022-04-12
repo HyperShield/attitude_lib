@@ -23,16 +23,9 @@ public:
 
 int main()
 {
-    Mat3<float> A = {{1,0,0},{0,1,0},{0,0,1}};
-    Mat3<float> B(A);
-
-    Quaternion<float> q{2,0,0,0};
-    Unit_Quaternion<float> v{0.5,0.5,0.5,0.5};
-    Unit_Quaternion<float> qq{1,0,0,0};
-    auto p = v*q;
-
-    cout << p << '\n';
-    //cout << 5.0f*v << '\n';
+    Vec3<float> u{1,0,0};
+    Vec3<float> v{0,1,0};
+    cout << cross(u,v) << '\n';
     Vec3<float> w = Vec3<float>{1,0,0};
     attitude<float> att;
     float dt = 0.01f;

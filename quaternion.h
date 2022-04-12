@@ -19,8 +19,7 @@ protected:
     T w, x, y, z;
 public:
     Quaternion_Base() : w{0}, x{0}, y{0}, z{0} {}
-    Quaternion_Base(const T w, const T x , const T y, const T z) : w{w}, x{x}, y{y}, z{z} {}
-    //Quaternion_Base(std::initializer_list<T> l) = delete;
+    Quaternion_Base(const T& w, const T& x , const T& y, const T& z) : w{w}, x{x}, y{y}, z{z} {}
 
     virtual T                   operator[](const unsigned int i) const;
     virtual Quaternion_Base<T>  conjugated() const                  {return {w,-x,-y,-z};}
@@ -32,36 +31,23 @@ public:
 template <typename T>
 T Quaternion_Base<T>::operator[](const unsigned int i) const
 {
-    T res = 0;
     switch(i) {
-        case 0:
-            res = this->w;
-            break;
-        case 1:
-            res = this->x;
-            break;
-        case 2:
-            res = this->y;
-            break;
-        case 3:
-            res = this->z;
-            break;
-        default:
-            assert(0);
-            break;
+        case 0: return this->w;
+        case 1: return this->x;
+        case 2: return this->y;
+        case 3: return this->z;
+        default: assert(0);
     };
-    return res;
+    //Should never happen
+    return 0;
 }
 
 template <typename T>
 class Quaternion : public Quaternion_Base<T> {
 public:
-    Quaternion() : Quaternion_Base<T>(0,0,0,0){}
-    Quaternion(const T w, const T x , const T y, const T z) : Quaternion_Base<T>{w,x,y,z} {}
+    Quaternion() : Quaternion_Base<T>{0,0,0,0} {}
+    Quaternion(const T& w, const T& x , const T& y, const T& z) : Quaternion_Base<T>{w,x,y,z} {}
     Quaternion(const Unit_Quaternion<T>& q) : Quaternion_Base<T>{q} {}
-    //Quaternion(std::initializer_list<T> l) = delete;
-
-    //Quaternion<T> conjugated() {return Quaternion<T>(this->w,-this->x,-this->y,-this->z);}
 
     Quaternion<T>&      operator*=(const Quaternion<T>& q);
     Quaternion<T>&      operator+=(const Quaternion<T>& q)  {this->w += q.w; this->x += q.x; this->y += q.y; this->z += q.z; return *this;}
@@ -167,9 +153,7 @@ public:
     Unit_Quaternion() : Quaternion_Base<T>{1,0,0,0} {}
     Unit_Quaternion(const T& w, const T& x, const T& y, const T& z) : Quaternion_Base<T>{w,x,y,z} {normalize();}
     Unit_Quaternion(const T& angle, const Vec3<T>& axis) {this->w = std::cos(angle/2);this->x = std::sin(angle/2)*axis[0];this->y = std::sin(angle/2)*axis[1];this->z = std::sin(angle/2)*axis[2];}
-    //Unit_Quaternion(std::initializer_list<T> l) = delete;
 
-    //Unit_Quaternion<T>       conjugated() {return {this->w,-this->x,-this->y,-this->z};}
     Unit_Quaternion<T>&      operator*=(const Unit_Quaternion<T>& q);
 
 };

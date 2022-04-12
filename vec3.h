@@ -11,15 +11,27 @@ private:
     T x,y,z;
 public:
     Vec3() : x{0}, y{0}, z{0} {}
-    Vec3(T x, T y, T z) : x{x}, y{y}, z{z} {}
-    //Vec3(std::initializer_list<T> l) = delete;
+    Vec3(const T& x, const T& y, const T& z) : x{x}, y{y}, z{z} {}
 
-    T           operator[](const unsigned int i) const  {T res = 0; switch(i) { case 0: res = x; break; case 1: res = y; break; case 2: res = z; break; default: assert(0); }return res;}
+    T           operator[](const unsigned int i) const;
     Vec3<T>&    operator+=(const Vec3<T>& v)            {x += v.x; y += v.y; z += v.z; return *this;}
     Vec3<T>&    operator-=(const Vec3<T>& v)            {x -= v.x; y -= v.y; z -= v.z; return *this;}
     Vec3<T>&    operator*=(const T& a)                  {x *= a; y *= a; z *= a; return *this;}
     Vec3<T>&    operator/=(const T& a)                  {x /= a; y /= a; z /= a; return *this;}
 };
+template <typename T>
+T Vec3<T>::operator[](const unsigned int i) const
+{
+    switch(i) {
+    case 0: return x;
+    case 1: return y;
+    case 2: return z;
+    default: assert(0);
+    }
+    //Should never happen
+    return 0;
+}
+
 template <typename T>
 T dot(const Vec3<T>& u, const Vec3<T>& v)
 {
