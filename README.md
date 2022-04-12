@@ -3,9 +3,14 @@
 This is still a work in progress.
 
 Quaternions are divided into:
+
 	Quaternion_Base
+	
 	Quaternion
+	
 	Unit_Quaternion
+	
+	
 The Quaternion_Base class is meant to represent quaternion numbers only. Quaternion class represents quaternions as elements of a vector space forming a division algebra. Unit_Quaternions class represents unit quaternions as a non-abelian group.
 
 This separation is a bit strict especially for practical use, but it's straightforward to modify the implementations in here for a more practical usecase.
