@@ -14,17 +14,16 @@ private:
     T A[9];
 public:
     Mat3();// = default;
-
     Mat3(Mat3&&) = default;
     Mat3& operator=(Mat3&&) = default;
     Mat3(const Mat3&) = default;
     Mat3& operator=(const Mat3&) = default;
     ~Mat3() = default;
-
     Mat3(Mat3& M);
     Mat3(std::initializer_list<row_vec<T>> l);
     Mat3(std::initializer_list<T> l) = delete;
-    T& operator()(unsigned int i, unsigned int j) {assert(i < 3 && j < 3); return A[i*3+j];}
+
+    T&      operator()(unsigned int i, unsigned int j)      {assert(i < 3 && j < 3); return A[i*3+j];}
 };
 template <typename T>
 Mat3<T>::Mat3()
