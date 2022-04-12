@@ -1,0 +1,17 @@
+# Qt Creator files
+*.user*
+
+# CMake in-source build
+CMakeCache.txt
+cmake_install.cmake
+CMakeFiles/
+*.o
+*.a
+*.lib
+*.so
+*.obj
+*.moc
+
+# Build folders
+build/
+BUILD/
