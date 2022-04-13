@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cmath>
-#include "quaternion.h"
-#include "vec3.h"
-#include "mat3.h"
+#include "../inc/quaternion.h"
+#include "../inc/vec3.h"
+#include "../inc/mat3.h"
 #include "attitude.h"
 
 using namespace std;

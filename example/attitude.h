@@ -3,18 +3,18 @@
 #include <iostream>
 #include <cmath>
 #include <initializer_list>
-#include "quaternion.h"
-#include "vec3.h"
-#include "mat3.h"
+#include "../inc/quaternion.h"
+#include "../inc/vec3.h"
+#include "../inc/mat3.h"
 
 template <typename T>
 class attitude {
 private:
-    Unit_Quaternion<T> q;
-    Unit_Quaternion<T> integrate_euler(const Unit_Quaternion<T>& q, const Vec3<T>& w, const T& dt);
-    Unit_Quaternion<T> integrate_rk2(const Unit_Quaternion<T>& q, const Vec3<T>& w, const T& dt);
-    Unit_Quaternion<T> integrate_rk4(const Unit_Quaternion<T>& q, const Vec3<T>& w, const T& dt);
-    Quaternion<T>      attitude_kinematics(const Unit_Quaternion<T>& q, const Vec3<T>& w);
+    Unit_Quaternion<T>  q;
+    Unit_Quaternion<T>  integrate_euler(const Unit_Quaternion<T>& q, const Vec3<T>& w, const T& dt);
+    Unit_Quaternion<T>  integrate_rk2(const Unit_Quaternion<T>& q, const Vec3<T>& w, const T& dt);
+    Unit_Quaternion<T>  integrate_rk4(const Unit_Quaternion<T>& q, const Vec3<T>& w, const T& dt);
+    Quaternion<T>       attitude_kinematics(const Unit_Quaternion<T>& q, const Vec3<T>& w);
 public:
     attitude() : q{1,0,0,0} {}
     attitude(const T& w, const T& x, const T& y, const T& z) : q{w,x,y,z} {}
