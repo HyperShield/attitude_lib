@@ -23,7 +23,7 @@ public:
 
 int main()
 {
-    Vec3<float> u{1,0,0};
+    /*Vec3<float> u{1,0,0};
     Vec3<float> v{0,1,0};
     cout << cross(u,v) << '\n';
     Vec3<float> w = Vec3<float>{1,0,0};
@@ -33,6 +33,18 @@ int main()
         att.update_attitude(w,dt);
     }
     cout << att.get_attitude_quaternion() << '\n';
-    cout << att.get_attitude_euler() << '\n';
-    return 0;
+    cout << att.get_attitude_euler() << '\n';*/
+
+    float pi = 3.141592f;
+    Unit_Quaternion<float> q_180(0,1,0,0);
+    Unit_Quaternion<float> q_90(std::cos(pi/4.0f),0,0,std::sin(pi/4.0f));
+    Quaternion<float> v(0,1,2,3);
+    Unit_Quaternion<float> q_traf(-q_90[0],q_90[2],-q_90[1],-q_90[3]);
+
+    cout << q_90*q_180*v*conjugate(q_90*q_180) << '\n';
+    cout << q_traf*v*conjugate(q_traf) << '\n';
+    cout << Unit_Quaternion<float>(1,2,3,4) << '\n';
+    cout << Unit_Quaternion<float>(0,0,0,-1)*Unit_Quaternion<float>(1,2,3,4) << '\n';
+    cout << Unit_Quaternion<float>{q_180}.conjugate() << '\n';
+    cout << expq(v.imag()) << '\n';
 }

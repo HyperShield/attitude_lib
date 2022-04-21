@@ -18,6 +18,7 @@ public:
     Vec3<T>&    operator-=(const Vec3<T>& v)            {x -= v.x; y -= v.y; z -= v.z; return *this;}
     Vec3<T>&    operator*=(const T& a)                  {x *= a; y *= a; z *= a; return *this;}
     Vec3<T>&    operator/=(const T& a)                  {x /= a; y /= a; z /= a; return *this;}
+    T magnitude() {return std::sqrt(x*x + y*y + z*z);}
 };
 template <typename T>
 T Vec3<T>::operator[](const unsigned int i) const
