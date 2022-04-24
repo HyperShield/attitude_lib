@@ -4,6 +4,7 @@
 #include <cmath>
 #include <initializer_list>
 #include <cassert>
+#include "mat3.h"
 
 template <typename T>
 class Vec3 {
@@ -89,5 +90,20 @@ template <typename T>
 std::ostream& operator<<(std::ostream& os, const Vec3<T>& v)
 {
     return os << "Vector<3>: " << "{" << v[0] << ", " << v[1] << ", " << v[2] << "}";
+}
+template <typename T>
+Mat3<T> outer(Vec3<T> u, Vec3<T> v)
+{
+    return {{u[0]*v[0],u[0]*v[1],u[0]*v[2]},{u[1]*v[0],u[1]*v[1],u[1]*v[2]},{u[2]*v[0],u[2]*v[1],u[2]*v[2]}};
+}
+template <typename T>
+Mat3<T> skew(Vec3<T> u)
+{
+    return {{0,-u[2],u[1]},{u[2],0,-u[0]},{-u[1],u[0],0}};
+}
+template <typename T>
+Vec3<T> vex(Mat3<T> M)
+{
+    return {M(2,1),M(3,1),M(3,2)};
 }
 #endif

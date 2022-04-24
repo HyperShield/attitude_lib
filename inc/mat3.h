@@ -2,7 +2,7 @@
 #define MAT_H
 #include <cassert>
 #include <initializer_list>
-#include "vec3.h"
+
 template <typename T>
 struct row_vec{
     T row[3];

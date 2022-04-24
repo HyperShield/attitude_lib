@@ -45,7 +45,7 @@ Unit_Quaternion<T> attitude<T>::integrate_euler(const Unit_Quaternion<T>& q, con
     Quaternion<T> p{q};
     Quaternion<T> dot_q = attitude_kinematics(q, w);
     p += dot_q*dt;
-    return {p[0],p[1],p[2],p[3]};
+    return {p};
 }
 template <typename T>
 Unit_Quaternion<T> attitude<T>::integrate_rk2(const Unit_Quaternion<T>& q, const Vec3<T>& w, const T& dt)
@@ -53,10 +53,10 @@ Unit_Quaternion<T> attitude<T>::integrate_rk2(const Unit_Quaternion<T>& q, const
     auto f1 = attitude_kinematics(q, w);
     auto k1 = Quaternion<T>{q} + f1*(dt/2);
 
-    auto f2 = attitude_kinematics({k1[0], k1[1], k1[2], k1[3]}, w);
+    auto f2 = attitude_kinematics({k1}, w);
 
     auto res = Quaternion<T>{q} + f2*dt;
-    return {res[0],res[1],res[2],res[3]};
+    return {res};
 }
 template <typename T>
 Unit_Quaternion<T> attitude<T>::integrate_rk4(const Unit_Quaternion<T>& q, const Vec3<T>& w, const T& dt)
@@ -64,16 +64,16 @@ Unit_Quaternion<T> attitude<T>::integrate_rk4(const Unit_Quaternion<T>& q, const
     auto f1 = attitude_kinematics(q, w);
     auto k1 = Quaternion<T>{q} + f1*(dt/2);
 
-    auto f2 = attitude_kinematics({k1[0], k1[1], k1[2], k1[3]}, w);
+    auto f2 = attitude_kinematics({k1}, w);
     auto k2 = Quaternion<T>{q} + f2*(dt/2);
 
-    auto f3 = attitude_kinematics({k2[0], k2[1], k2[2], k2[3]}, w);
+    auto f3 = attitude_kinematics({k2}, w);
     auto k3 = Quaternion<T>{q} + f3*dt;
 
-    auto f4 = attitude_kinematics({k3[0], k3[1], k3[2], k3[3]}, w);
+    auto f4 = attitude_kinematics({k3}, w);
 
     auto res = Quaternion<T>{q} + (dt/6)*(f1 + f4) + (dt/3)*(f2 + f3);
-    return {res[0],res[1],res[2],res[3]};
+    return {res};
 }
 template <typename T>
 Vec3<T> attitude<T>::get_attitude_euler()
