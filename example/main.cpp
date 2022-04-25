@@ -6,6 +6,7 @@
 #include "../inc/mat3.h"
 #include "attitude.h"
 #include "../inc/explicit_complementary_filter.h"
+#include "../inc/madgwick.h"
 
 using namespace std;
 
@@ -55,8 +56,8 @@ int main()
     cout << Unit_Quaternion<float>{q_180}.conjugate() << '\n';
     cout << expq(v.imag()) << '\n';*/
     using Vec3f = Vec3<float>;
-    Vec3f v1{0.0f,1.0f,0.0f};
-    Vec3f v2{1.0f,0.0f,0.0f};
+    Vec3f v1{0.0f,0.0f,1.0f};
+    Vec3f v2{1.0f,0.0f,0.2f};
     ECF<float,2> F;
     F.set_gains(2.5f,0.2f,0.5f,0.5f);
     F.set_reference_vectors(v1,v2);
@@ -70,7 +71,10 @@ int main()
     attitude<float> att;
     float dt = 0.01f;
     Vec3f b_w{0.1f,0.1f,0.1f};
-    for(float t = 0; t < 10; t += dt){
+
+    Madgwick<float> M;
+    M.set_gains(2.0f,1.0f,0.2f);
+    for(float t = 0; t < 100; t += dt){
         att.update_attitude(w,dt);
         if(t > 5) {
             Vec3f n_w{w_dist(generator),w_dist(generator),w_dist(generator)};
@@ -81,9 +85,12 @@ int main()
             auto u1 = rotate_vec(conjugate(q),v1) + n_1;
             auto u2 = rotate_vec(conjugate(q),v2) + n_2;
             F.update_filter(w_m,dt,u1,u2);
+            M.update_filter(w_m, dt, u1, u2);
         }
     }
     cout << att.get_attitude_quaternion() << '\n';
     cout << F.get_attitude() << '\n';
     cout << F.get_bias() << '\n';
+    cout << M.get_attitude() << '\n';
+    cout << M.get_bias() << '\n';
 }
